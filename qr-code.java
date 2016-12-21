@@ -1,14 +1,10 @@
-//package com.javapapers.java;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.imageio.ImageIO;
-
 import com.google.zxing.BarcodeFormat;	/*uses constant QR_CODE that means QR code 2d barcode format is used---Enumerates barcode formats known to this package. Please keep alphabetized.*/
 import com.google.zxing.BinaryBitmap;	/*uses constructor---This class is the core bitmap class used by ZXing to represent 1 bit data. Reader objects accept a BinaryBitmap and attempt to decode it*/
 import com.google.zxing.EncodeHintType;	/*uses constant ERROR_CORRECTION to represent what level of correction---These are a set of hints that you may pass to Writers to specify their behavior.*/
@@ -46,7 +42,7 @@ public class QRCode {
 			NotFoundException {
 		String qrCodeData = "Dammmn Smeet, you are brilliant!";
 		String filePath = "QRCode.jpg";
-		String charset = "UTF-8"; // or "ISO-8859-1"
+		String charset = "UTF-8";
 		Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
 		hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);	//keeps error correction level L,i.e 7% damage can be handled.
 
