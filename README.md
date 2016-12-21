@@ -1,2 +1,3 @@
-# QR_Code
-QR Code Java Program for Smart India Hackathon 2017
+# QR Code
+## QR Code is to be used for authenticity checking of airplane tickets at the airport.
+#### Concern is unauthorized entry to airports using FAKE tickets.
