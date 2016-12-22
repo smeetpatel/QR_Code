@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.xml.bind.DatatypeConverter;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.EncodeHintType;
@@ -22,7 +26,7 @@ import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 public class QRCode {
-	public static void main(String[] args) throws WriterException, IOException, NotFoundException {
+	public static void main(String[] args) throws WriterException, IOException, NotFoundException,Exception {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Enter name of the passenger: ");
 		String passenger_name = reader.readLine();
@@ -37,16 +41,31 @@ public class QRCode {
 		System.out.println("Enter arrival airport and time : ");
 		String arrival = reader.readLine();
 		String qrCodeData = passenger_name + passenger_age + passenger_gender + flight_code + departure + arrival ;
-		String filePath = "qrcode.jpg";
-		String charset = "UTF-8";
-		Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
-		hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-		createQRCode(qrCodeData, filePath, charset, hintMap, 200, 200);
-		System.out.println("QR Code created successfully, Thanks!");
+		
+		try{
+			SecretKey key=AESEncryption.getSecretEncryptionKey();
+			byte[] cipherText=AESEncryption.encryptText(qrCodeData,key);
+			String filePath = "qrcode.jpg";
+			String charset = "UTF-8";
+		
+			Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
+			hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+		
+			createQRCode(cipherText, filePath, charset, hintMap, 200, 200);
+			
+			System.out.println("QR Code created successfully, Thanks!");	
+			String decryptedText = AESEncryption.decryptText(cipherText,key);
+			System.out.println("Encrypted Text (Hex Form):"+cipherText);
+       			System.out.println("Descrypted Text:"+decryptedText);
+       		
+		}catch(Exception e)
+		{
+			System.out.println("Exception Issued");
+		}
 	}
 
-	public static void createQRCode(String qrCodeData, String filePath, String charset, Map<EncodeHintType, ErrorCorrectionLevel> hintMap, int qrCodeheight, int qrCodewidth) throws WriterException, IOException {
-		BitMatrix matrix = new MultiFormatWriter().encode( new String(qrCodeData.getBytes(charset), charset), BarcodeFormat.QR_CODE, qrCodewidth, qrCodeheight, hintMap);
+	public static void createQRCode(byte[] cipherText, String filePath, String charset, Map<EncodeHintType, ErrorCorrectionLevel> hintMap, int qrCodeheight, int qrCodewidth) throws WriterException, IOException {
+		BitMatrix matrix = new MultiFormatWriter().encode( new String(cipherText, charset), BarcodeFormat.QR_CODE, qrCodewidth, qrCodeheight, hintMap);
 		MatrixToImageWriter.writeToFile(matrix, filePath.substring(filePath.lastIndexOf('.') + 1), new File(filePath));
 	}
 }
