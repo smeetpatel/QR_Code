@@ -1,152 +1,149 @@
+import javax.swing.*;  
+import java.awt.event.*; 
 import java.awt.*;
-import java.applet.*;
-import java.awt.event.*;
 
-public class book extends Frame implements ActionListener{
-	String confirmMessage;
-	Button b1=new Button("Book Ticket");
-	Button b2=new Button("Cancel");
-	Label head=new Label("Air India",Label.CENTER);
-	//Label l1=new label("Journey Type: ",Label.LEFT);
-	Label l2=new Label("From: ",Label.LEFT);
-	Label l3=new Label("To: ",Label.LEFT);
-	Label l4=new Label("Depart: ",Label.LEFT);
-	Label l5=new Label("Arrive: ",Label.LEFT);
-	//Label l6=new label("Travellers: ",Label.LEFT);
-	Label l7=new Label("Cabin: ",Label.LEFT);
-	Label l8=new Label("Select Flight: ",Label.LEFT);
-	Label l9=new Label("Passenger Name: ",Label.LEFT);
-	Label l10=new Label("Age: ",Label.LEFT);
-	Label l11=new Label("Mobile No: ",Label.LEFT);
-	Label l12=new Label("Email: ",Label.LEFT);
-	Label l13=new Label("Sex: ",Label.LEFT);
-	TextField t1=new TextField();
-	TextField t2=new TextField();
-	TextField t3=new TextField();
-	TextField t4=new TextField();
-	Choice c1=new Choice();
-	CheckboxGroup cbg=new CheckboxGroup();
-	Checkbox c2=new Checkbox("Male",false,cbg);
-	Checkbox c3=new Checkbox("Female",false,cbg);
-	Choice from=new Choice();
-	Choice to=new Choice();
-	Choice cabin=new Choice();
-	Choice flight=new Choice();
-	public book()
-	{
-		addWindowListener(new myWindowAdapter());
- 		setBackground(Color.white);
-		setForeground(Color.black);
-		//setup the page
-		add(head);
-		add(l2);
-		add(l3);
-		add(l4);
-		add(l5);
-		//add(l6);
-		add(l7);
-		add(l8);
-		add(l9);
-		add(l10);
-		add(l11);
-		add(l12);
-		add(l13);
-		add(t1);
-		add(t2);
-		add(t3);
-		add(t4);
-		add(c2);
-		add(c3);
-		add(from);
-		add(to);
-		add(cabin);
-		add(flight);
-		add(b1);
-		b1.addActionListener(this);
-		add(b1);
-		add(b2);
-		b2.addActionListener(this);
-		add(b2);
-		
-		from.add("Mumbai");
-		from.add("Vadodara");
-		from.add("Ahmedabad");
-		from.add("Delhi");
-		from.add("Banglore");
-		
-		to.add("Mumbai");
-		to.add("Vadodara");
-		to.add("Ahmedabad");
-		to.add("Delhi");
-		to.add("Banglore");
-		
-		cabin.add("First Class");
-		cabin.add("Economy Class");
-		cabin.add("Premium Economy Class");
-		cabin.add("Buisness Class");
-		
-		flight.add("AI 4125");
-		flight.add("AI 4175");
-		flight.add("AI 4621");
-		
-		l2.setBounds(25,65,90,20);
-		l3.setBounds(25,90,90,20);
-		l4.setBounds(25,115,90,20);
-		l5.setBounds(25,140,90,20);
-		//l6.setBounds(25,165,90,20);
-		l7.setBounds(25,165,90,20);
-		l8.setBounds(25,190,90,20);
-		l9.setBounds(25,215,140,20);
-		l10.setBounds(25,240,90,20);
-		l11.setBounds(25,265,90,20);
-		l12.setBounds(25,290,90,20);
-		l13.setBounds(25,315,90,20);
-		head.setBounds(10,40,280,20);
-		from.setBounds(120,65,100,20);
-		to.setBounds(120,90,100,20);
-		cabin.setBounds(120,165,100,20);
-		flight.setBounds(120,190,100,20);
-		t1.setBounds(170,215,170,20);
-		t2.setBounds(120,240,40,20);
-		t3.setBounds(120,265,100,20);
-		t4.setBounds(120,290,150,20);
-		c2.setBounds(120,315,50,20);
-		c3.setBounds(170,315,60,20);
-		b1.setBounds(80,365,90,20);
-		b2.setBounds(150,400,90,20);
-	}
-	public void paint(Graphics g)
-	{
-		g.drawString(confirmMessage,25,365);
-	}
-	
-	public void actionPerformed(ActionEvent ae)
-	{
-		if(ae.getActionCommand().equals("Book Ticket"))
- 		{
- 			confirmMessage="Ticket Booked";
-   			setForeground(Color.blue);
-   		}
-   		else if(ae.getActionCommand().equals("Cancel"))
-   		{
-   			confirmMessage="Cancelled";
-   			setForeground(Color.red);
-   		}
-	}
-	
-	public static void main(String g[])
-	{
-		book boo=new book();
-	 	boo.setSize(new Dimension(500,500));
- 		boo.setTitle("Ticket Booking Portal");
-		boo.setVisible(true);
-	}
-}
+class book extends JFrame implements ActionListener{  
+String confirmMessage;
+String NAME,AGE,DEPART,ARRIVE,FLIGHT,GENDER;
+static String qrCodeData;
+String airports[] ={"Mumbai","Vadodara","Ahmedabad","Delhi","Banglore"};
+String cab[] = {"First Class","Economy Class"," Premium Economy Class","Buisness Class"};
+String Flight[] = {"AI 4125","AI 4175","AI 4200"};
+JButton bookTicket = new JButton("Book Ticket");
+JButton cancelBooking = new JButton("Cancel");  
+JLabel head = new JLabel("Air India",JLabel.CENTER);
+JLabel from = new JLabel("From",JLabel.LEFT);
+JLabel to = new JLabel("To",JLabel.LEFT);
+JLabel depart = new JLabel("Depart",JLabel.LEFT);
+JLabel arrive = new JLabel("Arrive",JLabel.LEFT);
+JLabel cabin = new JLabel("Cabin",JLabel.LEFT);
+JLabel selectFlight = new JLabel("Select Flight",JLabel.LEFT);
+JLabel passengerName = new JLabel("Passenger Name",JLabel.LEFT);
+JLabel age = new JLabel("Age",JLabel.LEFT);
+JLabel mobileNumber = new JLabel("Mobile Number",JLabel.LEFT);
+JLabel email = new JLabel("Email",JLabel.LEFT);
+JLabel sex = new JLabel("Sex",JLabel.LEFT);
 
-class myWindowAdapter extends WindowAdapter
-{
-	public void windowClosing(WindowEvent we)
-	 {
-	  System.exit(0);
-	 }
-}
+JRadioButton genderChoice1 = new JRadioButton("Male");
+JRadioButton genderChoice2 = new JRadioButton("Female");
+
+JComboBox<String> departAirport = new JComboBox<String>(airports);
+JComboBox<String> arriveAirport = new JComboBox<String>(airports);
+JComboBox<String> Cabin = new JComboBox<String>(cab);
+JComboBox<String> flight = new JComboBox<String>(Flight);
+
+JTextField pName = new JTextField();
+JTextField pAge = new JTextField();
+JTextField pMob = new JTextField();
+JTextField pEmail = new JTextField();
+JTextField pDepart = new JTextField();
+JTextField pArrive = new JTextField();
+
+
+book(){ 
+	setTitle("Ticket Booking Portal");
+	setSize(800,800);  
+	setLayout(null);  
+	setVisible(true);
+  
+	from.setBounds(25,65,90,20);
+	to.setBounds(25,90,90,20);
+	depart.setBounds(25,115,90,20);
+	arrive.setBounds(25,140,90,20);
+	cabin.setBounds(25,165,90,20);
+	selectFlight.setBounds(25,190,90,20);
+	passengerName.setBounds(25,215,140,20);
+	age.setBounds(25,240,90,20);
+	mobileNumber.setBounds(25,265,150,20);
+	email.setBounds(25,290,90,20);
+	sex.setBounds(25,315,90,20);
+	
+	head.setBounds(100,30,280,20);
+	
+	departAirport.setBounds(170,65,100,20);
+	arriveAirport.setBounds(170,90,100,20);
+	Cabin.setBounds(170,165,200,20);
+	flight.setBounds(170,190,100,20);
+	
+	pName.setBounds(170,215,170,20);
+	pAge.setBounds(170,240,40,20);
+	pMob.setBounds(170,265,100,20);
+	pEmail.setBounds(170,290,150,20);
+	pDepart.setBounds(170,115,60,20);
+	pArrive.setBounds(170,140,60,20);
+	
+	ButtonGroup bg=new ButtonGroup();  
+	bg.add(genderChoice1);
+	bg.add(genderChoice2);
+	genderChoice1.setBounds(170,315,90,20);
+	genderChoice2.setBounds(260,315,120,20);
+	
+	bookTicket.setBounds(170,365,140,20);
+	cancelBooking.setBounds(330,365,90,20);
+	 
+	bookTicket.addActionListener(this);
+	cancelBooking.addActionListener(this);  
+  	
+  	add(from);	
+	add(to);
+	add(depart);
+	add(arrive);
+	add(cabin);
+	add(selectFlight);
+	add(passengerName);
+	add(age);
+	add(mobileNumber);
+	add(email);
+	add(sex);
+	add(head);
+	add(departAirport);
+	add(arriveAirport);
+	add(Cabin);
+	add(flight);
+	add(pName);
+	add(pAge);
+	add(pMob);
+	add(pEmail);
+	add(pDepart);
+	add(pArrive);
+	add(genderChoice1);
+	add(genderChoice2);
+	add(cancelBooking);
+	add(bookTicket);
+}  
+
+public void actionPerformed(ActionEvent e)
+{  
+	if(e.getActionCommand().equals("Book Ticket"))
+	{
+		confirmMessage="Ticket Booked";
+		JOptionPane.showMessageDialog(this,confirmMessage);
+   		//setForeground(Color.blue);
+   		NAME = pName.getText();
+   		AGE = pAge.getText();
+   		DEPART = pDepart.getText();
+   		ARRIVE = pArrive.getText();
+   		FLIGHT = (String)flight.getSelectedItem();
+   		if(genderChoice1.isSelected())
+   			GENDER="Male";
+   		else if(genderChoice2.isSelected())
+   			GENDER="Female";
+   		book.qrCodeData=NAME+AGE+GENDER+DEPART+ARRIVE+FLIGHT;
+   		try{
+			QRCAES.initiateQR(book.qrCodeData);
+		}catch(Exception ex)
+		{
+			System.out.println("Exception Issued");
+		}
+	}
+	else if(e.getActionCommand().equals("Cancel"))
+	{
+		confirmMessage="Cancelled";
+		JOptionPane.showMessageDialog(this,confirmMessage);
+	}
+}  
+public static void main(String args[]) {  
+		new book();  
+	}
+
+}  
