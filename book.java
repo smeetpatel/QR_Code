@@ -1,11 +1,14 @@
+
 import java.awt.*;
 import java.applet.*;
 import java.awt.event.*;
 
-public class book extends Frame implements ActionListener{
+
+public class book extends Frame implements ActionListener, ItemListener{
 	String confirmMessage;
-	Button b1=new Button("Book Ticket");
 	Button b2=new Button("Cancel");
+	Button b1=new Button("Book Ticket");
+	
 	Label head=new Label("Air India",Label.CENTER);
 	//Label l1=new label("Journey Type: ",Label.LEFT);
 	Label l2=new Label("From: ",Label.LEFT);
@@ -24,6 +27,8 @@ public class book extends Frame implements ActionListener{
 	TextField t2=new TextField();
 	TextField t3=new TextField();
 	TextField t4=new TextField();
+	TextField t6=new TextField();
+	TextField t5=new TextField();
 	Choice c1=new Choice();
 	CheckboxGroup cbg=new CheckboxGroup();
 	Checkbox c2=new Checkbox("Male",false,cbg);
@@ -34,6 +39,7 @@ public class book extends Frame implements ActionListener{
 	Choice flight=new Choice();
 	public book()
 	{
+		setLayout(null);
 		addWindowListener(new myWindowAdapter());
  		setBackground(Color.white);
 		setForeground(Color.black);
@@ -43,7 +49,6 @@ public class book extends Frame implements ActionListener{
 		add(l3);
 		add(l4);
 		add(l5);
-		//add(l6);
 		add(l7);
 		add(l8);
 		add(l9);
@@ -55,18 +60,20 @@ public class book extends Frame implements ActionListener{
 		add(t2);
 		add(t3);
 		add(t4);
+		add(t5);
+		add(t6);
+		add(c1);
 		add(c2);
 		add(c3);
 		add(from);
+		from.addItemListener(this);
 		add(to);
+		to.addItemListener(this);
 		add(cabin);
+		cabin.addItemListener(this);
 		add(flight);
-		add(b1);
-		b1.addActionListener(this);
-		add(b1);
-		add(b2);
-		b2.addActionListener(this);
-		add(b2);
+		flight.addItemListener(this);
+		
 		
 		from.add("Mumbai");
 		from.add("Vadodara");
@@ -101,19 +108,26 @@ public class book extends Frame implements ActionListener{
 		l11.setBounds(25,265,90,20);
 		l12.setBounds(25,290,90,20);
 		l13.setBounds(25,315,90,20);
-		head.setBounds(10,40,280,20);
-		from.setBounds(120,65,100,20);
-		to.setBounds(120,90,100,20);
-		cabin.setBounds(120,165,100,20);
-		flight.setBounds(120,190,100,20);
+		head.setBounds(100,30,280,20);
+		from.setBounds(170,65,100,20);
+		to.setBounds(170,90,100,20);
+		cabin.setBounds(170,165,100,20);
+		flight.setBounds(170,190,100,20);
 		t1.setBounds(170,215,170,20);
-		t2.setBounds(120,240,40,20);
-		t3.setBounds(120,265,100,20);
-		t4.setBounds(120,290,150,20);
-		c2.setBounds(120,315,50,20);
-		c3.setBounds(170,315,60,20);
+		t2.setBounds(170,240,40,20);
+		t3.setBounds(170,265,100,20);
+		t4.setBounds(170,290,150,20);
+		t5.setBounds(170,115,60,20);
+		t6.setBounds(170,145,60,20);
+		c2.setBounds(170,315,50,20);
+		c3.setBounds(220,315,60,20);
+		b2.setBounds(180,365,90,20);
 		b1.setBounds(80,365,90,20);
-		b2.setBounds(150,400,90,20);
+		add(b1);
+		b1.addActionListener(this);
+		
+		add(b2);
+		b2.addActionListener(this);
 	}
 	public void paint(Graphics g)
 	{
@@ -122,6 +136,16 @@ public class book extends Frame implements ActionListener{
 	
 	public void actionPerformed(ActionEvent ae)
 	{
+		
+		String str1 = t1.getText();
+		String str2 = t2.getText();
+		String str3 = t3.getText();
+		String str4 = t4.getText();
+		String str6= from.getSelectedItem();
+		String str7= to.getSelectedItem();
+		String str8= cabin.getSelectedItem();
+		String str9= flight.getSelectedItem();
+		System.out.println(str1+str2+str3+str4+str6+str7+str8+str9);
 		if(ae.getActionCommand().equals("Book Ticket"))
  		{
  			confirmMessage="Ticket Booked";
@@ -132,6 +156,21 @@ public class book extends Frame implements ActionListener{
    			confirmMessage="Cancelled";
    			setForeground(Color.red);
    		}
+	}
+	public void itemStateChanged(ItemEvent ie)
+	{
+		String str5;
+		if(cbg.getSelectedCheckbox().equals(c2))
+			str5="Male";
+		else	
+			
+			str5="Female";
+			
+		
+		
+		System.out.print(str5);
+	
+	
 	}
 	
 	public static void main(String g[])
@@ -150,3 +189,4 @@ class myWindowAdapter extends WindowAdapter
 	  System.exit(0);
 	 }
 }
+
