@@ -10,8 +10,12 @@
   - :octocat: [@deepkotecha](http://github.com/deepkotecha)
 - Smeet Patel
   - :octocat: [@smeetpatel](http://github.com/smeetpatel)
-  
-  
+- Shivam Patel
+  - :octocat: [@Shiv296](http://github.com/shiv296)
+- Monish Khambhati
+  - :octocat: [@monish2096](http://github.com/monish2096)
+
+
 ### Before You Begin
 - Sign up for an account on [github.com] (http://github.com)
 
